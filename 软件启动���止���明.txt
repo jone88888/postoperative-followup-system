@@ -1,0 +1,153 @@
+术后随访   理系统 - 启动与停止   明
+=====================================
+
+   、系统启动步   
+----------------
+
+### 1. 启动后   服务   （Django）
+
+   法一：   用命令   
+1)    开命令行窗口（CMD或PowerShell）
+2) 进入后端目录：
+   cd d:\desktop\document\软著\new\backend
+
+3) 激活Python虚拟   境   如果使   虚拟环境）：
+   venv\Scripts\activate
+
+4) 启动Django开发服务   ：
+   python manage.py runserver 8000
+
+5) 看到以   提示   示启动   功：
+   "Starting development server at http://127.0.0.1:8000/"
+
+### 2. 启动前端服务   （Vue）
+
+方法一：使用命令   
+1) 打开新的命令行窗口
+2) 进入前端目录：
+   cd d:\desktop\document\软著\new\frontend
+
+3)    装依   （仅首次运   需要   ：
+   npm install
+
+4) 启动Vue开发服   器：
+   npm run dev
+
+5) 看到以   提示表   启动成   ：
+   "Local: http://localhost:5173/"
+
+### 3.    问系   
+
+在浏   器中打开：http://localhost:5173
+
+   试账   ：
+- 管   员   admin / admin123
+- 医生：doctor1 / 123456
+- 患   ：patient1 / 123456
+
+
+二   系统停止步骤
+----------------
+
+### 停   后端   务器
+
+在运行后端的命令行窗   中：
+-     Ctrl + C 组合键
+- 等待提示"Quit the server with CONTROL-C"   服务停止
+- 关闭   令行窗口
+
+### 停止前端服务器
+
+在运行前端的命令   窗口中   
+-     Ctrl + C 组合键
+- 如果提示"Terminate batch job (Y/N)?"   输入 Y 并回车
+- 关   命令行窗口
+
+
+   、常见   题处理
+----------------
+
+### 问题1：端   被占用
+如果提示"   口8000已被使   "或"端口5173   被使用"：
+
+解   方法：
+1) 查找占用端   的进程：
+   netstat -ano | findstr "8000"    （   端）
+   netstat -ano | findstr "5173"       前端）
+
+2) 结束占用进程：
+   taskkill /F /PID <进程ID>
+
+3) 重新启动服   器
+
+### 问题2   数据库文件缺失
+如果后端报   "no such table"：
+
+解决方法：
+1) 进   backend目录
+2) 运   数据库迁   ：
+   python manage.py migrate
+
+3) 创   超级管   员（   需   ）：
+   python manage.py createsuperuser
+
+### 问   3：前   无法连   后端
+确   ：
+1) 后端服务   已启动（http://localhost:8000   
+2) 前端配置中API地址正   
+3) 浏览器控制   无CORS错   
+
+### 问题4：依赖包缺   
+   端：
+   pip install -r requirements.txt
+
+前   ：
+   npm install
+
+
+四、开发环   要求
+----------------
+
+   端要求   
+- Python 3.8+
+- Django 5.0.1
+- Django REST Framework
+
+前端要求：
+- Node.js 16+
+- npm 或 yarn
+
+数据库：
+- SQLite（开发   境   无需额外安装）
+
+
+五、注   事项
+------------
+
+1. 必须先启动后端   务器，再启动   端服   器
+2.    个服务   必须同   运行才   正常   用系统
+3. 关闭系   时建议先停止前   ，再   止后端
+4. 数据   文件   于：backend/db.sqlite3
+5. 首   运行   确保已安装所   依赖包
+6. 生产环境部署需要额外配置（请   考部署文档   
+
+
+六、快速启动脚本（可选）
+------------------------
+
+可以创   批处   文件实   一   启动：
+
+启动脚本（start.bat）：
+@echo off
+start cmd /k "cd backend && python manage.py runserver 8000"
+timeout /t 3
+start cmd /k "cd frontend && npm run dev"
+
+   止方法：
+在两个命令行窗   中分别    Ctrl+C
+
+
+===========================================
+如有问题，请查   项目目   下的 README.md    件
+或联系系   管   员
+===========================================
